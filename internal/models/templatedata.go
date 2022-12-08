@@ -1,9 +1,6 @@
 package models
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/iMeisa/errortrace"
 	"github.com/iMeisa/weed/internal/config"
 	"github.com/justinas/nosurf"
 	"net/http"
@@ -15,7 +12,7 @@ type TemplateData struct {
 	IntMap    map[string]int
 	FloatMap  map[string]float32
 	Data      map[string]interface{}
-	User
+	Records   []Record
 	CSRFToken string
 	Flash     string // Some message
 	Warning   string
@@ -37,15 +34,6 @@ func (data *TemplateData) AddDefaultData(r *http.Request, a *config.AppConfig) {
 
 	// Separate types
 	// User context to user type
-	if user := a.Session.Get(r.Context(), "user"); user != nil {
-		userString := fmt.Sprintf("%v", user)
-		err := json.Unmarshal([]byte(userString), &data.User)
-
-		if err != nil {
-			trace := errortrace.NewTrace(err)
-			trace.Read()
-		}
-	}
 
 	if data.Data == nil {
 		data.Data = make(map[string]interface{})
