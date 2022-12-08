@@ -4,6 +4,7 @@ import (
 	"github.com/iMeisa/weed/internal/config"
 	"github.com/justinas/nosurf"
 	"net/http"
+	"time"
 )
 
 // TemplateData holds data sent from handlers to templates
@@ -32,8 +33,21 @@ func (data *TemplateData) AddDefaultData(r *http.Request, a *config.AppConfig) {
 
 	data.CSRFToken = nosurf.Token(r)
 
+	records := []Record{
+		{
+			Date:   time.Date(2022, 07, 20, 12, 00, 00, 00, time.UTC),
+			Amount: 1.6,
+			Strain: Strain{
+				ID:     1,
+				Name:   "Diamonds",
+				Amount: 20,
+			},
+		},
+	}
+
+	data.Records = records
+
 	// Separate types
-	// User context to user type
 
 	if data.Data == nil {
 		data.Data = make(map[string]interface{})

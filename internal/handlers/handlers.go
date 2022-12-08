@@ -8,7 +8,6 @@ import (
 	"github.com/iMeisa/weed/internal/config"
 	"github.com/iMeisa/weed/internal/models"
 	"github.com/iMeisa/weed/internal/render"
-	"github.com/iMeisa/weed/internal/repository"
 	"log"
 	"net/http"
 )
@@ -26,7 +25,6 @@ const (
 // Repository is the repository type
 type Repository struct {
 	App *config.AppConfig
-	DB  repository.DatabaseRepo
 }
 
 // NewRepo creates a new repository
