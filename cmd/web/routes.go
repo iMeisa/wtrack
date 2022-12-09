@@ -17,6 +17,7 @@ func routes(_ *config.AppConfig) http.Handler {
 	mux.Use(SessionLoad)
 
 	mux.Get("/", handlers.Repo.Home)
+	mux.Get("/{page}", handlers.Repo.Public)
 
 	// HTML static files location
 	fileServer := http.FileServer(http.Dir("./static/"))

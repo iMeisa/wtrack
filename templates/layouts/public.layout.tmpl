@@ -3,8 +3,10 @@
     {{template "base-head"}}
 
     <head>
-        <title>Weed Tracker</title>
-        <meta name="description" content="setups">
+        {{block "title" .}}
+            <title>Weed Tracker</title>
+        {{end}}
+        <meta name="description" content="WEED BITCH">
     </head>
 
     {{block "css" .}}
@@ -22,7 +24,8 @@
             {{template "base-nav" .}}
             <div class="collapse navbar-collapse" id="navbar-dropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#" id="nav-example">Example</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/" id="nav-usage">Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/reserves" id="nav-reserves">Reserves</a></li>
                 </ul>
             </div>
         </div>
@@ -37,6 +40,8 @@
     {{block "js" .}}
 
     {{end}}
+
+    {{template "base-script"}}
 
     </body>
 
