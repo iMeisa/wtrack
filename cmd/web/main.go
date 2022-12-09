@@ -1,13 +1,16 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/alexedwards/scs/v2"
 	"github.com/iMeisa/errortrace"
 	"github.com/iMeisa/weed/internal/config"
 	"github.com/iMeisa/weed/internal/handlers"
+	"github.com/iMeisa/weed/internal/models"
 	"github.com/iMeisa/weed/internal/render"
 	"github.com/joho/godotenv"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -35,22 +38,26 @@ func main() {
 
 	app.Session = session
 
-	// Connect to db
-	//log.Println("Connecting to DB...")
-	//db, trace := dbDriver.ConnectSQL(os.Getenv("DBNAME"))
-	//if trace.HasError() {
-	//	trace.Read()
-	//	log.Fatal()
-	//}
-	////Close connection
-	//defer func(SQL *sql.DB) {
-	//	err := SQL.Close()
-	//	if err != nil {
-	//		trace = errortrace.NewTrace(err)
-	//		trace.Read()
-	//	}
-	//}(db.SQL)
-	//log.Println("Connected to DB")
+	// Create json db
+	if _, err := os.Stat("./db/db.json"); os.IsNotExist(err) {
+		db := models.DB{}
+
+		// Marshal the leagues into JSON
+		dbJSON, err := json.MarshalIndent(db, "", "	")
+		if err != nil {
+			trace := errortrace.NewTrace(err)
+			trace.Read()
+			panic(err)
+		}
+
+		// Write the JSON to the file
+		err = ioutil.WriteFile(fmt.Sprintf("./db/db.json"), dbJSON, 0644)
+		if err != nil {
+			trace := errortrace.NewTrace(err)
+			trace.Read()
+			panic(err)
+		}
+	}
 
 	// Templates
 	tc, trace := render.CreateTemplateCache()

@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+type DB struct {
+	Types   []Strain `json:"types"`
+	Records []Record `json:"records"`
+}
+
 type Strain struct {
 	ID     int     `json:"id"`
 	Name   string  `json:"name"`
