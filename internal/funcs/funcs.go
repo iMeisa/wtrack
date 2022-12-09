@@ -1,6 +1,7 @@
 package funcs
 
 import (
+	"fmt"
 	"github.com/iMeisa/weed/internal/tools"
 	"html/template"
 )
@@ -8,12 +9,17 @@ import (
 var Functions = template.FuncMap{
 	"add":       add,
 	"contains":  tools.Contains,
+	"format":    format,
 	"makeRange": makeRange,
 	"subtract":  subtract,
 }
 
 func add(num1, num2 int) int {
 	return num1 + num2
+}
+
+func format(f float32) string {
+	return fmt.Sprintf("%.3f", f)
 }
 
 func makeRange(count int) []int {

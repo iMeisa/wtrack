@@ -31,7 +31,7 @@
 
             <tfoot>
             <tr>
-                <td class="text-right">Total: </td>
+                <td class="text-right">Total:</td>
                 <td colspan="2" class="bg-success">2.232g</td>
             </tr>
             </tfoot>
@@ -49,15 +49,17 @@
             </tr>
             </thead>
 
+            <tbody>
             {{range .Records}}
 
                 <tr>
-                    <td class="date">{{.Date}}</td>
-                    <td>{{.Amount}}g</td>
+                    <td class="date">{{.Date.Month}} {{.Date.Day}}</td>
+                    <td>{{format .Amount}}g</td>
                     <td>{{.Strain.Name}}</td>
                 </tr>
 
             {{end}}
+            </tbody>
 
         </table>
 
